@@ -4,7 +4,9 @@ using System.Text;
 
 namespace DatabaseManager.Models
 {
-    internal class ConnectionInfo
+    public class ConnectionInfo
     {
+        public string Name { get; set; };
+        public string ConnectionString { get; set; }
     }
 }
