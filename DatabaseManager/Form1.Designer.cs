@@ -2,15 +2,8 @@
 {
     partial class Form1
     {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,20 +13,35 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        private Button btnTestConnection;
+        private Label lblStatus;
 
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Text = "Form1";
-        }
+            this.btnTestConnection = new Button();
+            this.lblStatus = new Label();
+            this.SuspendLayout();
 
-        #endregion
+            // btnTestConnection
+            this.btnTestConnection.Name = "btnTestConnection";
+            this.btnTestConnection.Text = "Test Connection";
+            this.btnTestConnection.Location = new Point(30, 30);
+            this.btnTestConnection.Size = new Size(160, 40);
+            this.btnTestConnection.Click += new EventHandler(this.btnTestConnection_Click);
+
+            // lblStatus
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Text = "Not connected";
+            this.lblStatus.Location = new Point(30, 90);
+            this.lblStatus.Size = new Size(400, 30);
+            this.lblStatus.Font = new Font("Segoe UI", 10F);
+
+            // Form1
+            this.ClientSize = new Size(480, 200);
+            this.Text = "Database Manager";
+            this.Controls.Add(this.btnTestConnection);
+            this.Controls.Add(this.lblStatus);
+            this.ResumeLayout(false);
+        }
     }
 }
