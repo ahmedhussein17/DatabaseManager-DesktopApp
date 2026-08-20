@@ -1,14 +1,14 @@
 ﻿[
     {
         "Name": "Dev",
-        "ConnectionString": "Server=localhost;Database=DatabaseManager_Dev;Trusted_Connection=True;TrustServerCertificate=True;"
+        "ConnectionString": "Server=LAPTOP-E6KB1DCC\\SQLEXPRESS;Database=DatabaseManager_Dev;Trusted_Connection=True;TrustServerCertificate=True;"
     },
     {
         "Name": "Test",
-        "ConnectionString": "Server=localhost;Database=DatabaseManager_Test;Trusted_Connection=True;TrustServerCertificate=True;"
+        "ConnectionString": "Server=LAPTOP-E6KB1DCC\\SQLEXPRESS;Database=DatabaseManager_Test;Trusted_Connection=True;TrustServerCertificate=True;"
     },
     {
         "Name": "Staging",
-        "ConnectionString": "Server=localhost;Database=DatabaseManager_Staging;Trusted_Connection=True;TrustServerCertificate=True;"
+        "ConnectionString": "Server=LAPTOP-E6KB1DCC\\SQLEXPRESS;Database=DatabaseManager_Staging;Trusted_Connection=True;TrustServerCertificate=True;"
     }
 ]
