@@ -18,6 +18,9 @@
         private ComboBox cmbEnvironment;
         private Button btnLoadObjects;
         private ListBox lstObjects;
+        private ComboBox cmbTable;
+        private Button btnBackupTable;
+        private Label lblBackupStatus;
 
         private void InitializeComponent()
         {
@@ -26,6 +29,9 @@
             this.cmbEnvironment = new ComboBox();
             this.btnLoadObjects = new Button();
             this.lstObjects = new ListBox();
+            this.cmbTable = new ComboBox();
+            this.btnBackupTable = new Button();
+            this.lblBackupStatus = new Label();
             this.SuspendLayout();
 
             // btnTestConnection
@@ -58,16 +64,39 @@
             // lstObjects
             this.lstObjects.Name = "lstObjects";
             this.lstObjects.Location = new Point(30, 140);
-            this.lstObjects.Size = new Size(500, 250);
+            this.lstObjects.Size = new Size(500, 180);
+
+            // cmbTable
+            this.cmbTable.Name = "cmbTable";
+            this.cmbTable.Location = new Point(30, 340);
+            this.cmbTable.Size = new Size(200, 30);
+            this.cmbTable.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            // btnBackupTable
+            this.btnBackupTable.Name = "btnBackupTable";
+            this.btnBackupTable.Text = "Backup Table";
+            this.btnBackupTable.Location = new Point(240, 340);
+            this.btnBackupTable.Size = new Size(140, 30);
+            this.btnBackupTable.Click += new EventHandler(this.btnBackupTable_Click);
+
+            // lblBackupStatus
+            this.lblBackupStatus.Name = "lblBackupStatus";
+            this.lblBackupStatus.Text = "";
+            this.lblBackupStatus.Location = new Point(30, 380);
+            this.lblBackupStatus.Size = new Size(500, 40);
+            this.lblBackupStatus.Font = new Font("Segoe UI", 9F);
 
             // Form1
-            this.ClientSize = new Size(560, 420);
+            this.ClientSize = new Size(560, 440);
             this.Text = "Database Manager";
             this.Controls.Add(this.btnTestConnection);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.cmbEnvironment);
             this.Controls.Add(this.btnLoadObjects);
             this.Controls.Add(this.lstObjects);
+            this.Controls.Add(this.cmbTable);
+            this.Controls.Add(this.btnBackupTable);
+            this.Controls.Add(this.lblBackupStatus);
             this.Load += new EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
         }

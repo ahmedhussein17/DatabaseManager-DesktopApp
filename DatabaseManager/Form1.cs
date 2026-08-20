@@ -47,6 +47,7 @@ namespace DatabaseManager
         private void btnLoadObjects_Click(object sender, EventArgs e)
         {
             lstObjects.Items.Clear();
+            cmbTable.Items.Clear();
 
             if (cmbEnvironment.SelectedItem == null)
             {
@@ -60,27 +61,18 @@ namespace DatabaseManager
 
             try
             {
-                using (var conn = new SqlConnection(connInfo.ConnectionString))
+                var objects = SchemaService.GetDatabaseObjects(connInfo.ConnectionString);
+
+                foreach (var obj in objects)
                 {
-                    conn.Open();
+                    lstObjects.Items.Add($"[{obj.Type}] {obj.Name}");
 
-                    string query = @"
-                        SELECT name, type_desc
-                        FROM sys.objects
-                        WHERE type IN ('U', 'V', 'P')
-                        ORDER BY type_desc, name";
-
-                    using (var cmd = new SqlCommand(query, conn))
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            string name = reader.GetString(0);
-                            string type = reader.GetString(1);
-                            lstObjects.Items.Add($"[{type}] {name}");
-                        }
-                    }
+                    if (obj.Type == "USER_TABLE")
+                        cmbTable.Items.Add(obj.Name);
                 }
+
+                if (cmbTable.Items.Count > 0)
+                    cmbTable.SelectedIndex = 0;
 
                 Logger.Log("LoadObjects", selectedEnv, "-", "Success");
             }
@@ -88,6 +80,37 @@ namespace DatabaseManager
             {
                 MessageBox.Show("Failed to load objects: " + ex.Message);
                 Logger.Log("LoadObjects", selectedEnv, "-", "Failed: " + ex.Message);
+            }
+        }
+
+        private void btnBackupTable_Click(object sender, EventArgs e)
+        {
+            if (cmbEnvironment.SelectedItem == null || cmbTable.SelectedItem == null)
+            {
+                MessageBox.Show("Pick an environment and a table first.");
+                return;
+            }
+
+            string selectedEnv = cmbEnvironment.SelectedItem.ToString();
+            string tableName = cmbTable.SelectedItem.ToString();
+
+            var connections = ConfigService.LoadConnections();
+            var connInfo = connections.First(c => c.Name == selectedEnv);
+
+            try
+            {
+                var result = BackupService.BackupTable(connInfo.ConnectionString, tableName);
+
+                lblBackupStatus.Text = result.Message;
+                lblBackupStatus.ForeColor = result.Success ? Color.Green : Color.Orange;
+
+                Logger.Log("BackupTable", selectedEnv, result.BackupName, result.Success ? "Success" : "Skipped - already exists");
+            }
+            catch (Exception ex)
+            {
+                lblBackupStatus.Text = "Backup failed: " + ex.Message;
+                lblBackupStatus.ForeColor = Color.Red;
+                Logger.Log("BackupTable", selectedEnv, tableName, "Failed: " + ex.Message);
             }
         }
     }
